@@ -312,7 +312,7 @@ Usar `sudo` ou adicionar o usuário ao grupo `docker` e reiniciar a sessão.
 ## Como reproduzir
 
 ```bash
-git clone https://github.com/SEU-USUARIO/introducao-ao-docker.git
+git clone https://github.com/mjuspy/introducao-ao-docker.git
 cd introducao-ao-docker
 docker build -t minha-flask .
 docker run -d -p 5000:5000 --name meu-flask minha-flask
