@@ -73,7 +73,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io \
      docker-buildx-plugin docker-compose-plugin
 ```
 
-![Instalação do Docker](imagens/instalacao-docker.png)
+
 
 Foram instalados 7 pacotes, ocupando cerca de **382 MB** adicionais em disco.
 
