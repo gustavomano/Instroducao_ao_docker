@@ -4,9 +4,8 @@ Primeira etapa do trabalho da disciplina de **Redes e Administração de Sistema
 
 O objetivo foi instalar o Docker em uma máquina virtual com Ubuntu Server, escrever uma aplicação web em **Python** com o framework **Flask** e executá-la dentro de um **container**, acessando a página pelo navegador.
 
-- **Professor:** Cesar Augusto de Moraes Costa
 - **Ambiente:** Ubuntu Server sobre Oracle VirtualBox
-- **Imagem base:** `python:3.14-slim`
+
 
 ---
 
@@ -92,7 +91,6 @@ Foram instalados 7 pacotes, ocupando cerca de **382 MB** adicionais em disco.
 sudo docker run hello-world
 ```
 
-![hello-world](imagens/hello-world.png)
 
 A saída desse comando descreve exatamente o que aconteceu por trás:
 
@@ -113,7 +111,7 @@ projeto-flask/
 └── Dockerfile
 ```
 
-![Estrutura do projeto](imagens/estrutura-projeto.png)
+
 
 Manter o código dentro de `app/` não é só organização. Isso permite copiar **primeiro** o `requirements.txt` para a imagem e só **depois** o código, o que aproveita muito melhor o cache de camadas do Docker.
 
@@ -123,7 +121,7 @@ Em seguida, a imagem base foi baixada:
 docker pull python:3.14-slim
 ```
 
-![Pull da imagem Python](imagens/pull-python.png)
+
 
 A variante `slim` traz só o necessário para rodar Python, seguindo a boa prática de construir imagens leves.
 
@@ -131,7 +129,7 @@ A variante `slim` traz só o necessário para rodar Python, seguindo a boa prát
 docker image ls
 ```
 
-![Imagens antes do build](imagens/imagens-iniciais.png)
+
 
 ---
 
@@ -206,7 +204,7 @@ O que cada instrução faz:
 docker build -t minha-flask .
 ```
 
-![Build da imagem](imagens/docker-build.png)
+
 
 O `-t` dá um nome à imagem e o ponto final indica o **contexto de construção**, ou seja, o diretório cujo conteúdo é enviado ao daemon.
 
@@ -221,7 +219,7 @@ docker run -d -p 5000:5000 --name meu-flask minha-flask
 docker ps
 ```
 
-![Container em execução](imagens/docker-run-ps.png)
+
 
 | Opção | Função |
 |---|---|
@@ -235,7 +233,7 @@ O `docker ps` mostra o container com status `Up` e o mapeamento `0.0.0.0:5000->5
 docker image ls
 ```
 
-![Imagens depois do build](imagens/imagens-final.png)
+
 
 A `minha-flask` aparece com 211 MB contra 191 MB da imagem base, mas o espaço realmente ocupado a mais é de apenas **20 MB**. Todas as camadas herdadas do Python são compartilhadas fisicamente entre as duas imagens. Esse é o efeito do sistema de camadas.
 
@@ -249,11 +247,10 @@ A `minha-flask` aparece com 211 MB contra 191 MB da imagem base, mas o espaço r
 curl http://localhost:5000
 ```
 
-![Teste com curl](imagens/teste-curl.png)
 
 **No navegador do computador hospedeiro** (com o adaptador de rede já em modo Bridge):
 
-![Aplicação no navegador](imagens/navegador-inicial.png)
+
 
 ---
 
@@ -261,9 +258,7 @@ curl http://localhost:5000
 
 Com o fluxo funcionando, a aplicação ganhou as rotas `/sobre` e `/contato`, um menu de navegação compartilhado e uma folha de estilos CSS.
 
-![Código com as novas rotas](imagens/codigo-app-rotas.png)
 
-![Edição na VM](imagens/codigo-app-vm.png)
 
 Como o código está **dentro da imagem**, editar o arquivo não muda o container que já está rodando. É preciso refazer o ciclo:
 
@@ -278,9 +273,7 @@ Esse segundo build foi bem mais rápido, porque só a camada de cópia do códig
 
 **Resultado:**
 
-![Página inicial](imagens/pagina-inicio.png)
 
-![Página Sobre](imagens/pagina-sobre.png)
 
 ---
 
